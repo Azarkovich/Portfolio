@@ -1,0 +1,279 @@
+/* ---------- CONFIGURATION GLOBALE ---------- */
+:root {
+    /* Palette de couleurs "Dark Mode" */
+    --bg-color: #0d1117;        
+    --card-bg: #161b22;         
+    --text-color: #c9d1d9;      
+    --accent-color: #2ea44f;    
+    --border-color: #30363d;    
+    
+    /* Police */
+    --font-mono: 'Fira Code', monospace;
+}
+
+/* Reset de base pour enlever les marges par défaut */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-mono);
+    line-height: 1.6;
+}
+
+/* ---------- CLASSES UTILITAIRES ---------- */
+a {
+    text-decoration: none;
+    color: var(--text-color);
+    transition: 0.3s;
+}
+
+a:hover {
+    color: var(--accent-color); 
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* ---------- STYLE DE LA NAVIGATION ---------- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 40px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+/* ---------- STYLE DU HERO (ACCUEIL) ---------- */
+.hero {
+    height: 80vh; 
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin: 10px 0;
+}
+
+.prompt {
+    color: #8b949e; 
+    font-size: 0.9rem;
+}
+.user { color: var(--accent-color); }
+.path { color: #79c0ff; }
+
+/*  Curseur qui clignote  */
+.cursor {
+    animation: blink 1s infinite;
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+
+/* --- SECTION SKILLS (TERMINAL) --- */
+
+/* 1. La fenêtre principale */
+.terminal-window {
+    background-color: var(--card-bg); 
+    border: 1px solid var(--border-color); 
+    border-radius: 8px; 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    
+    max-width: 700px; 
+    margin: 0 auto;   
+    overflow: hidden; 
+}
+
+/* 2. La barre de titre */
+.terminal-header {
+    background-color: #21262d; 
+    padding: 10px 15px;
+    display: flex;
+    align-items: center; 
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* 3. Les petits points de couleur (Style MacOS / Ubuntu) */
+.dot {
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.red { background-color: #ff5f56; }
+.yellow { background-color: #ffbd2e; }
+.green { background-color: #27c93f; }
+
+/* Le titre du fichier au centre */
+.terminal-header .title {
+    margin-left: auto; 
+    margin-right: auto; 
+    color: #8b949e;
+    font-size: 0.85rem;
+}
+
+/* 4. Le corps du terminal (Le contenu) */
+.terminal-body {
+    padding: 20px;
+    font-family: var(--font-mono);
+    font-size: 1rem;
+}
+
+.terminal-body p {
+    margin-bottom: 12px; 
+}
+
+/* Le prompt */
+.cmd {
+    color: var(--accent-color);
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+
+/* --- SECTION PROJETS (LA GRILLE) --- */
+
+/* 1. Le Titre de section */
+.section-title {
+    text-align: center;
+    margin-bottom: 50px; 
+    font-size: 1.8rem;
+    color: var(--text-color);
+}
+
+/* 2. Le conteneur Grille (La magie opère ici) */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px; 
+}
+
+/* 3. Le style de la Carte (Card) individuelle */
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px; 
+    padding: 30px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    
+    display: flex;
+    flex-direction: column;
+}
+
+/* Effet au survol de la souris */
+.card:hover {
+    transform: translateY(-7px); 
+    border-color: var(--accent-color); 
+}
+
+/* 4. Typographie à l'intérieur de la carte */
+.card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.card p {
+    color: #8b949e; 
+    margin-bottom: 25px;
+    flex-grow: 1; 
+}
+
+/* 5. Les Tags (Badges techno) */
+.tags {
+    display: flex;
+    gap: 10px; 
+    margin-bottom: 20px;
+    flex-wrap: wrap; 
+}
+
+.tag {
+    font-size: 0.8rem;
+    padding: 5px 12px;
+    border-radius: 20px; 
+    background-color: rgba(46, 164, 79, 0.1); 
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+}
+
+/* 6. Le lien "Bouton" en bas */
+.btn-link {
+    display: inline-block;
+    color: var(--accent-color);
+    font-weight: 600;
+    text-transform: uppercase; 
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+/* Petit effet d'animation sur la flèche après le lien */
+.btn-link::after {
+    content: ' ->'; 
+    transition: margin-left 0.3s ease;
+}
+
+.btn-link:hover::after {
+    margin-left: 8px; 
+}
+
+/* --- FOOTER (PIED DE PAGE) --- */
+footer {
+    text-align: center;
+    padding: 60px 20px;
+    margin-top: 60px;
+    border-top: 1px solid var(--border-color); 
+    color: #8b949e;
+    font-size: 0.9rem;
+}
+
+/* Le bloc "Contact" qui ressemble à du code */
+footer p {
+    font-family: var(--font-mono);
+    margin-bottom: 20px;
+    background-color: #161b22; 
+    display: inline-block;     
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: 1px dashed var(--border-color); /
+}
+
+/* Les liens sociaux */
+.socials {
+    display: flex;
+    justify-content: center;
+    gap: 30px; 
+}
+
+.socials a {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none; 
+}
+
+/* Effet spécial pour les liens du footer */
+.socials a:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
