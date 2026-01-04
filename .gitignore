@@ -1,0 +1,15 @@
+# Fichiers Systèmes
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+
+# Dossiers node_modules (si jamais tu passes au JS moderne plus tard)
+node_modules/
