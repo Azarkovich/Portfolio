@@ -134,7 +134,7 @@ a:hover {
     font-size: 0.85rem;
 }
 
-/* 4. Le corps du terminal (Le contenu) */
+/* 4. Le corps du terminal */
 .terminal-body {
     padding: 20px;
     font-family: var(--font-mono);
@@ -155,7 +155,6 @@ a:hover {
 
 /* --- SECTION PROJETS (LA GRILLE) --- */
 
-/* 1. Le Titre de section */
 .section-title {
     text-align: center;
     margin-bottom: 50px; 
@@ -163,14 +162,12 @@ a:hover {
     color: var(--text-color);
 }
 
-/* 2. Le conteneur Grille (La magie opère ici) */
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px; 
 }
 
-/* 3. Le style de la Carte (Card) individuelle */
 .card {
     background-color: var(--card-bg);
     border: 1px solid var(--border-color);
@@ -182,13 +179,12 @@ a:hover {
     flex-direction: column;
 }
 
-/* Effet au survol de la souris */
 .card:hover {
     transform: translateY(-7px); 
     border-color: var(--accent-color); 
 }
 
-/* 4. Typographie à l'intérieur de la carte */
+/* 4. Typographie */
 .card h3 {
     font-size: 1.3rem;
     margin-bottom: 15px;
@@ -201,7 +197,7 @@ a:hover {
     flex-grow: 1; 
 }
 
-/* 5. Les Tags (Badges techno) */
+/* 5. Les Tags  */
 .tags {
     display: flex;
     gap: 10px; 
@@ -228,7 +224,7 @@ a:hover {
     font-size: 0.9rem;
 }
 
-/* Petit effet d'animation sur la flèche après le lien */
+
 .btn-link::after {
     content: ' ->'; 
     transition: margin-left 0.3s ease;
@@ -238,7 +234,7 @@ a:hover {
     margin-left: 8px; 
 }
 
-/* --- FOOTER (PIED DE PAGE) --- */
+/* --- FOOTER --- */
 footer {
     text-align: center;
     padding: 60px 20px;
@@ -248,7 +244,7 @@ footer {
     font-size: 0.9rem;
 }
 
-/* Le bloc "Contact" qui ressemble à du code */
+/* Le bloc  */
 footer p {
     font-family: var(--font-mono);
     margin-bottom: 20px;
@@ -276,4 +272,35 @@ footer p {
 .socials a:hover {
     color: var(--accent-color);
     text-decoration: underline;
+}
+
+/* --- RESPONSIVE MOBILE  --- */
+
+@media screen and (max-width: 768px) {
+    /* 1. On transforme la barre en colonne verticale */
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 10px;
+        height: auto; 
+    }
+
+    /* 2.  */
+    .nav-links {
+        flex-direction: column; 
+        gap: 15px;              
+        margin-top: 15px;       
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-links a, .logo {
+        font-size: 1rem; 
+        display: block; 
+        padding: 5px;   
+    }
+    
+    .hero {
+        padding-top: 20px;
+    }
 }
