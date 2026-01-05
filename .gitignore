@@ -10,6 +10,3 @@ desktop.ini
 
 # Logs
 *.log
-
-# Dossiers node_modules (si jamais tu passes au JS moderne plus tard)
-node_modules/
