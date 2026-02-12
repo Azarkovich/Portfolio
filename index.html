@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio | Xavier TOKO-PROUST </title>
 
+    <!-- SECURITY LAYER -->
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                script-src 'self'; 
+                style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
+                font-src https://fonts.gstatic.com; 
+                img-src 'self'; 
+                frame-ancestors 'none'; 
+                base-uri 'self'; 
+                form-action 'self';">
+
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
     <link href="//fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -85,13 +98,24 @@
         </div>
     </section>
 
-    <footer>
-        <p>Contact : echo "eGF2aWVydG9rby5wcm9AZ21haWwuY29t" | base64 -d</p>
-        <div class="socials">
-            <a href="https://github.com/Azarkovich">GitHub</a>
-            <a href="https://www.linkedin.com/in/xavier-toko-proust-367366219/" target="_blank">LinkedIn</a>
-        </div>
-    </footer>
+    <footer id="contact">
+    <div class="terminal-contact">
+        <p class="cmd-line">
+            <span class="prompt">root@azar:~$</span> 
+            echo "eGF2aWVydG9rby5wcm9AZ21haWwuY29t" | base64 -d
+        </p>
+        
+        <p class="output-line">
+            <span class="result-arrow">↳</span> 
+            <a href="mailto:xaviertoko.pro@gmail.com" class="email-link">xaviertoko.pro@gmail.com</a>
+        </p>
+    </div>
+
+    <div class="socials">
+        <a href="https://github.com/Azarkovich" target="_blank">GitHub</a>
+        <a href="https://www.linkedin.com/in/xavier-toko-proust/" target="_blank">LinkedIn</a>
+    </div>
+</footer>
 
     <script src="script.js"></script>
 </body>
