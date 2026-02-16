@@ -316,6 +316,39 @@ footer {
 }
 
 
+/* --- SEE-MORE SECTION  --- */
+.see-more-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; 
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+/* --- BOUTON TERMINAL --- */
+.btn-terminal {
+    display: inline-block;
+    padding: 10px 18px; 
+    color: var(--accent-color);
+    border: 1px solid var(--text-color); 
+    border-radius: 4px;
+    background: transparent;
+    text-decoration: none;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem; 
+    transition: all 0.2s ease;
+    opacity: 0.8; 
+}
+
+.btn-terminal:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    background: rgba(0, 255, 0, 0.05); 
+    opacity: 1;
+}
+
+
 /* --- RESPONSIVE MOBILE  --- */
 
 @media screen and (max-width: 768px) {
