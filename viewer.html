@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write-Up Viewer | Xavier TOKO-PROUST</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        #markdown-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--text-color);
+            border-radius: 8px;
+            text-align: left; 
+        }
+
+        #markdown-content h1, #markdown-content h2, #markdown-content h3 {
+            color: var(--accent-color);
+            margin-top: 1.5em;
+            border-bottom: 1px dashed rgba(255,255,255,0.1);
+            padding-bottom: 0.5em;
+        }
+
+        #markdown-content p, #markdown-content li {
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        #markdown-content pre {
+            border-radius: 6px;
+            border: 1px solid #333;
+            margin: 15px 0;
+        }
+
+        #markdown-content code {
+            font-family: 'Fira Code', monospace;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        
+        #markdown-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        #markdown-content blockquote {
+            border-left: 4px solid var(--accent-color);
+            margin: 15px 0;
+            padding-left: 20px;
+            background: rgba(0, 255, 0, 0.05);
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo-container">
+            <div class="logo-text">
+                <span class="prompt">></span> Xavier TP<span class="cursor">_</span>
+            </div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">[ ./Home ]</a></li>
+            <li><a href="writeups.html">[ ./Writeups ]</a></li>
+        </ul>
+    </nav>
+
+    <section class="container" style="margin-top: 100px; margin-bottom: 50px;">
+        <div id="loading" style="text-align: center;">[ Fetching data stream... ]</div>
+        <div id="markdown-content"></div>
+        
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="writeups.html" class="btn-link"><- Return to Archive</a>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const fileName = urlParams.get('file');
+
+        const contentDiv = document.getElementById('markdown-content');
+        const loadingDiv = document.getElementById('loading');
+
+        if (!fileName) {
+            loadingDiv.innerHTML = "<span style='color:red'>[ERROR] No file specified.</span>";
+        } else {
+            fetch(`assets/writeups/${fileName}`)
+                .then(response => {
+                    if (!response.ok) throw new Error("File not found");
+                    return response.text();
+                })
+                .then(markdown => {
+                    contentDiv.innerHTML = marked.parse(markdown);
+                    Prism.highlightAll();
+                    loadingDiv.style.display = 'none';
+                })
+                .catch(error => {
+                    loadingDiv.innerHTML = `<span style='color:red'>[ERROR] 404 Data not found: ${fileName}</span>`;
+                    console.error(error);
+                });
+        }
+    </script>
+</body>
+</html>
