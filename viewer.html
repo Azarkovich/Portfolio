@@ -99,14 +99,21 @@
         if (!fileName) {
             loadingDiv.innerHTML = "<span style='color:red'>[ERROR] No file specified.</span>";
         } else {
+            const folderPath = fileName.substring(0, fileName.lastIndexOf('/'));
+            const basePath = folderPath ? `assets/writeups/${folderPath}/` : 'assets/writeups/';
+
             fetch(`assets/writeups/${fileName}`)
                 .then(response => {
                     if (!response.ok) throw new Error("File not found");
                     return response.text();
                 })
                 .then(markdown => {
-                    contentDiv.innerHTML = marked.parse(markdown);
+                    const fixedMarkdown = markdown.replace(/!\[([^\]]*)\]\((?!http)(.*?)\)/g, `![$1](${basePath}$2)`);
+
+                    contentDiv.innerHTML = marked.parse(fixedMarkdown);
+                    
                     Prism.highlightAll();
+                    
                     loadingDiv.style.display = 'none';
                 })
                 .catch(error => {
