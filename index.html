@@ -28,8 +28,8 @@
 
         <ul class="nav-links">
             <li><a href="#projects">[ ./Projects & Writeups ]</a></li>
+            <li><a href="https://github.com/Azarkovich" target="_blank">[ ./GitHub ]</a></li>
             <li><a href="assets/CV.pdf" target="_blank">[ ./Resume.pdf ]</a></li>
-            <li><a href="mailto:xaviertoko.pro@gmail.com">[ ./Contact ]</a></li>
         </ul>
     </nav>
 
@@ -54,8 +54,9 @@
             
             <div class="terminal-body">
                 <p><span class="cmd">> LANGUAGES :</span> Python, Bash, C, JavaScript, SQL</p>
-                <p><span class="cmd">> TOOLS   :</span> Nmap, Burp Suite, Wireshark, Metasploit, Git</p>
-                <p><span class="cmd">> SYSTEMS      :</span> Linux (Kali/Debian), Windows, MacOS</p>
+                <p><span class="cmd">> TOOLS   :</span> Nmap, Burp Suite, Splunk, Wireshark, Sigma</p>
+                <p><span class="cmd">> FRAMEWORK   :</span> MITRE ATT&CK</p>
+                <p><span class="cmd">> SYSTEMS      :</span> Linux (Ubuntu/Debian), Windows, MacOS</p>
             </div>
         </div>
     </section>
@@ -64,36 +65,50 @@
         <h2 class="section-title">[ ./Projects_&_Writeups ]</h2>
         
         <div class="projects-grid">
-            <article class="card">
-                <h3>CyberSecurity Lab</h3>
-                <div class="tags">
-                    <span class="tag">Bash</span>
-                    <span class="tag">VirtualBox</span>
-                    <span class="tag">Pentest</span>
-                </div>
-                <p>Built a testing environment to analyze vulnerabilities: XSS, SQLi, LFI/RFI. Automated reconnaissance scanning using Bash.</p>
-                <a href="https://github.com/Azarkovich/CyberSecurity-Labs" target="_blank" class="btn-link">View Code</a>
-            </article>
 
             <article class="card">
+                <div class="team-badge team-blue">
+                    <span class="circle blue"></span> [ Project ]
+                </div>
+
                 <h3>Password Manager v3</h3>
                 <div class="tags">
                     <span class="tag">Python</span>
                     <span class="tag">Crypto (AES-GCM)</span>
                 </div>
                 <p>Developed a secure manager using AES-GCM encryption and zero-knowledge architecture. Focused on attack surface reduction.</p>
-                <a href="https://github.com/Azarkovich/PasswordManager" target="_blank" class="btn-link">View Code</a>
+                <a href="https://github.com/Azarkovich/PasswordManager" target="_blank" class="btn-link">View GitHub Page -></a>
             </article>
 
-            <div class="projects-grid">
             <article class="card">
-                <h3>[Write-Up] XSS Vulnerability</h3>
+                <div class="team-badge team-red">
+                    <span class="circle red"></span> [ Red Team ]
+                </div>
+
+                <h3>XSS Vulnerability</h3>
                 <div class="tags">
+                    <span class="tag">DVWA</span>
                     <span class="tag">Web</span>
                     <span class="tag">XSS</span>
                 </div>
                 <p>Deep dive into Cross-Site Scripting mechanics. Analyzed injection vectors, exploitation scenarios, and implemented secure coding mitigations. </p>
-                <a href="https://github.com/Azarkovich/CyberSecurity-Labs/tree/main/reports/dvwa-vuln/xss-dvwa" target="_blank" class="btn-link">Read write-up</a>
+                <a href="viewer.html?file=xss-dvwa.md" class="btn-link">Read Write-up -></a>
+            </article>
+
+            <article class="card">
+                <div class="team-badge team-blue">
+                    <span class="circle blue"></span> [ Blue Team ]
+                </div>
+
+                <h3>Alert Triage — Nmap Scan Detection</h3>
+                <div class="tags">
+                    <span class="tag">SOC </span>
+                    <span class="tag">Network Analysis</span>
+                    <span class="tag">Splunk</span>
+                </div>
+                <p>Investigated suspicious network traffic to detect and triage unauthorized Nmap scanning activity. Analyzed logs data to identify stealth scan signatures (SYN, UDP) and documented IOCs for defensive rule creation.</p>
+
+                <a href="viewer.html?file=blue-team/alert-triage-nmap.md" class="btn-link">Read Write-up -></a>
             </article>
         </div>
 
