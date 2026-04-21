@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PurpleKEY | Password Manager</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        :root {
+            --pk-bg-deep: #0e0e14;
+            --pk-bg-card: #1a1628;
+            --pk-border: #2a2040;
+            --pk-violet: #7c3aed;
+            --pk-violet-lt: #a78bfa;
+            --pk-text-pri: #e2d9f3;
+            --pk-text-sec: #8b7ab8;
+        }
+
+        body.purplekey-page {
+            background-color: var(--pk-bg-deep);
+            color: var(--pk-text-pri);
+        }
+
+        .pk-hero {
+            text-align: center;
+            margin-top: 80px;
+            padding: 0 20px;
+        }
+
+        .pk-title {
+            color: var(--pk-violet);
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+        }
+
+        .pk-subtitle {
+            color: var(--pk-text-sec);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+            line-height: 1.6;
+        }
+
+        .pk-card {
+            background-color: var(--pk-bg-card);
+            border: 1px solid var(--pk-border);
+            border-radius: 8px;
+            padding: 25px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .pk-card:hover {
+            border-color: var(--pk-violet-lt);
+            transform: translateY(-2px);
+        }
+
+        .pk-card h3 {
+            color: var(--pk-violet-lt);
+            border-bottom: 1px dashed var(--pk-border);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .pk-list {
+            list-style: none;
+            padding: 0;
+            line-height: 1.8;
+            color: var(--pk-text-sec);
+            font-size: 0.95rem;
+        }
+
+        .pk-list li::before {
+            content: ">";
+            color: var(--pk-violet);
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .pk-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            font-family: 'Fira Code', monospace;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            border: 1px solid var(--pk-violet);
+            color: var(--pk-text-pri);
+            background: rgba(124, 58, 237, 0.15);
+            margin: 10px;
+        }
+
+        .pk-btn:hover {
+            background: var(--pk-violet);
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(124, 58, 237, 0.5);
+        }
+
+        .pk-warning {
+            background: rgba(196, 57, 78, 0.1);
+            border-left: 4px solid #c4394e;
+            padding: 15px;
+            text-align: left;
+            font-size: 0.9rem;
+            color: var(--pk-text-sec);
+            margin-top: 20px;
+            border-radius: 0 4px 4px 0;
+        }
+    </style>
+</head>
+<body class="purplekey-page">
+
+    <nav class="navbar" style="background: rgba(14, 14, 20, 0.9);">
+        <a href="index.html" class="logo-container" style="text-decoration: none;">
+            <div class="logo-text">
+                <span class="prompt" style="color: var(--pk-violet);">></span> <span style="color: var(--pk-text-pri);">Xavier TOKO-PROUST</span><span class="cursor">_</span>
+            </div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html" style="color: var(--pk-text-sec);">[ ./Home ]</a></li>
+            <li><a href="https://github.com/Azarkovich/PurpleKEY" target="_blank" style="color: var(--pk-violet-lt);">[ ./Source_Code ]</a></li>
+        </ul>
+    </nav>
+
+    <section class="container pk-hero">
+        <h1 class="pk-title">PurpleKEY</h1>
+        <p class="pk-subtitle">
+            Local, encrypted, and open-source password manager. Built with a zero-knowledge architecture for absolute security. Your data never leaves your machine.
+        </p>
+
+        <div style="margin-top: 30px; margin-bottom: 50px;">
+            <a href="https://github.com/Azarkovich/PurpleKEY/releases/latest/download/PurpleKEY-windows.exe" class="pk-btn">
+                [ .exe ] Windows
+            </a>
+            <a href="https://github.com/Azarkovich/PurpleKEY/releases/latest/download/PurpleKEY-linux" class="pk-btn">
+                [ ELF ] Linux
+            </a>
+            <a href="https://github.com/Azarkovich/PurpleKEY/releases/latest/download/PurpleKEY-macos" class="pk-btn">
+                [ Mach-O ] macOS
+            </a>
+        </div>
+    </section>
+
+    <section class="container" style="max-width: 900px; margin-bottom: 80px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;">
+            
+            <div class="pk-card">
+                <h3>./Security_Specs</h3>
+                <ul class="pk-list">
+                    <li>Encryption: AES-256-GCM</li>
+                    <li>Key Derivation: Argon2id (64MB, 3 iter)</li>
+                    <li>Storage: Binary CBOR or SQLite</li>
+                    <li>Integrity: GCM Tag (No hash stored)</li>
+                    <li>Strength Estimation: zxcvbn</li>
+                </ul>
+            </div>
+
+            <div class="pk-card">
+                <h3>./Features</h3>
+                <ul class="pk-list">
+                    <li>Zero-Knowledge Architecture</li>
+                    <li>Generator (Random / Passphrase)</li>
+                    <li>Favorites System</li>
+                    <li>Real-time encrypted search</li>
+                    <li>100% Local, Offline & Open Source</li>
+                </ul>
+            </div>
+
+            <div class="pk-card">
+                <h3>./Tech_Stack</h3>
+                <ul class="pk-list">
+                    <li>Python 3.11</li>
+                    <li>PySide6 (GUI)</li>
+                    <li>cryptography & argon2-cffi</li>
+                    <li>cbor2 & sqlite3</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="pk-card" style="margin-top: 25px;">
+            <h3>./Installation_Notes</h3>
+            <p style="color: var(--pk-text-sec); font-size: 0.95rem; line-height: 1.6;">
+                As an independent open-source application, PurpleKEY is not signed with expensive developer certificates. Your OS might display a security warning on the first launch.
+            </p>
+            
+            <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 15px;">
+                <div style="flex: 1; min-width: 250px;">
+                    <strong style="color: var(--pk-text-pri);">Windows (SmartScreen):</strong>
+                    <p style="color: var(--pk-text-sec); font-size: 0.9rem;">Click on "More info" > "Run anyway".</p>
+                </div>
+                <div style="flex: 1; min-width: 250px;">
+                    <strong style="color: var(--pk-text-pri);">macOS (Gatekeeper):</strong>
+                    <p style="color: var(--pk-text-sec); font-size: 0.9rem;">Open your terminal and type:<br> <code style="background: rgba(0,0,0,0.5); padding: 2px 5px; border-radius: 3px; color: var(--pk-violet-lt);">xattr -dr com.apple.quarantine PurpleKEY-macos</code></p>
+                </div>
+            </div>
+
+            <div class="pk-warning">
+                <strong>Warning:</strong> The source code is fully auditable on GitHub. Ensure you choose a strong master password: <u>it is cryptographically impossible to recover your data if forgotten.</u>
+            </div>
+        </div>
+
+    </section>
+
+</body>
+</html>
