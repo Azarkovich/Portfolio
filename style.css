@@ -349,7 +349,7 @@ footer {
 }
 
 
-/* --- DATES & BAGDES NEW --- */
+/* --- DATES & BADGE NEW --- */
 .card-date {
     font-family: 'Fira Code', monospace;
     font-size: 0.8rem;
@@ -359,29 +359,28 @@ footer {
     display: block;
 }
 
-/* La pastille NEW */
+/* La pastille NEW (Style Orange/Warning) */
 .badge-new {
     display: inline-block;
-    background-color: rgba(0, 255, 0, 0.1);
-    color: var(--accent-color);
-    border: 1px solid var(--accent-color);
+    background-color: #ffb86c;
+    color: #282a36; 
     padding: 2px 6px;
     border-radius: 4px;
     font-size: 0.65rem;
-    font-weight: bold;
+    font-weight: 800;
     letter-spacing: 1px;
     margin-left: 10px;
     vertical-align: middle; 
-    animation: pulse-border 2s infinite;
+    animation: pulse-border-new 2s infinite;
+    border: none; 
 }
 
-/* Animation de pulsation */
-@keyframes pulse-border {
-    0% { box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.4); }
-    70% { box-shadow: 0 0 0 4px rgba(0, 255, 0, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(0, 255, 0, 0); }
+/* Animation de pulsation Orange */
+@keyframes pulse-border-new {
+    0% { box-shadow: 0 0 0 0 rgba(255, 184, 108, 0.7); }
+    70% { box-shadow: 0 0 0 5px rgba(255, 184, 108, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 184, 108, 0); }
 }
-
 
 /* --- RESPONSIVE MOBILE  --- */
 

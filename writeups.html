@@ -14,109 +14,53 @@
 <body>
 
     <nav class="navbar">
-        <a href="index.html" class="logo-container">
+        <a href="index.html" class="logo-container" style="text-decoration: none;">
             <div class="logo-text">
                 <span class="prompt">></span> Xavier TOKO-PROUST<span class="cursor">_</span>
             </div>
         </a>
         <ul class="nav-links">
-            <li><a href="#projects">[ ./Projects & Writeups ]</a></li>
+            <li><a href="index.html">[ ./Home ]</a></li>
+            <li><a href="assets/CV_Xavier_Toko_Proust.pdf" target="_blank">[ ./Resume.pdf ]</a></li>
+            <li><a href="writeups.html">[ ./Writeups ]</a></li>
             <li><a href="https://github.com/Azarkovich" target="_blank">[ ./GitHub ]</a></li>
-            <li><a href="assets/CV.pdf" target="_blank">[ ./Resume.pdf ]</a></li>
+            <li><a href="mailto:xaviertoko.pro@gmail.com">[ ./Contact ]</a></li>
         </ul>
     </nav>
 
     <section class="container" style="margin-top: 100px;">
-        <h1 class="section-title">[ ~/archive/writeups ]</h1>
-        <p style="text-align: center; margin-bottom: 40px; color: var(--text-color); opacity: 0.8;">
+        <h1 class="section-title" style="text-align: center;">[ ~/archive/writeups ]</h1>
+        <p style="text-align: center; margin-bottom: 50px; color: var(--text-color); opacity: 0.8; max-width: 700px; margin-left: auto; margin-right: auto;">
             A collection of my security research, covering both red team vulnerability exploitation and blue team defensive analysis.
         </p>
         
-        <div class="projects-grid">
-            
-            <article class="card">
-                <span class="card-date">[ 2026-01-10 ]</span>
+        <div id="writeups-container" class="projects-grid"></div>
 
-
-                <h3>Cross-Site Scripting Analysis</h3>
-                <div class="tags">
-                    <span class="tag">Web Security</span>
-                    <span class="tag">XSS</span>
-                    <span class="tag">DVWA</span>
-                </div>
-                <p>From injection to real impact. Explored Reflected, Stored, and DOM vulnerabilities, session exposure, and mitigations like CSP and HttpOnly cookies.</p>
-                <a href="viewer.html?file=xss-dvwa.md" class="btn-link">Read Write-up -></a>
-            </article>
-
-
-            <article class="card">
-                <span class="card-date">[ 2026-02-08 ]</span>
-
-                <h3>SQL Injection Analysis</h3>
-                <div class="tags">
-                    <span class="tag">Web Security</span>
-                    <span class="tag">SQLi</span>
-                    <span class="tag">DVWA</span>
-                </div>
-                <p>From Error-Based to Blind Exploitation. Analyzed vulnerability root causes and bypassed logic using Boolean, UNION-based, and Time-Based payloads.</p>
-                <a href="viewer.html?file=SQLinjection-low.md" class="btn-link">Read Write-up -></a>
-            </article>
-
-
-            <article class="card">
-                <span class="card-date">[ 2026-02-15 ]</span>
-
-
-                <h3>THM: Biblioteca CTF </h3>
-                <div class="tags">
-                    <span class="tag">CTF</span>
-                    <span class="tag">SQLi</span>
-                    <span class="tag">PrivEsc</span>
-                </div>
-                <p>End-to-end compromise of a Linux machine. Exploited an authentication bypass via SQLi, performed lateral movement, and achieved root via Python library hijacking using sudo SETENV.</p>
-                <a href="viewer.html?file=biblioteca/biblioteca.md" class="btn-link">Read Write-up -></a>
-            </article>
-
-            <article class="card">
-                <span class="card-date">[ 2026-02-20 ]</span>
-
-                <h3>THM: Valenfind CTF</h3>
-                <div class="tags">
-                    <span class="tag">CTF</span>
-                    <span class="tag">LFI</span>
-                    <span class="tag">Web</span>
-                </div>
-                <p>Exploited a Local File Inclusion (LFI) vulnerability discovered through exposed developer comments. Bypassed null-byte restrictions to extract the Flask source code, revealing a hardcoded Admin API key used to dump the SQLite database.</p>
-                <a href="viewer.html?file=valenfind/valenfind.md" class="btn-link">Read Write-up -></a>
-            </article>
-
-
-            <article class="card">
-                <span class="card-date">[ 2026-03-07 ]</span>
-
-                <h3>Alert Triage — Nmap Network Scan Detection <span class="badge-new">NEW</span></h3>
-                <div class="tags">
-                    <span class="tag">SOC Analysis</span>
-                    <span class="tag">Splunk</span>
-                    <span class="tag">Windows Logs</span>
-                </div>
-                <p>Investigated suspicious network traffic to detect and triage unauthorized Nmap scanning activity. Analyzed logs data to identify stealth scan signatures (SYN, UDP) and documented IOCs for defensive rule creation.</p>
-                <a href="viewer.html?file=blue-team/alert-triage-nmap.md" class="btn-link">Read Write-up -></a>
-            </article>
-
-
-        </div>
     </section>
 
-    <footer style="text-align: center; margin-top: 50px; padding-bottom: 20px;">
-        <div class="socials" style="display: flex; justify-content: center; gap: 30px;">
+    <footer id="contact" style="margin-top: 80px;">
+        <div class="terminal-contact">
+            <p class="cmd-line">
+                <span class="prompt">root@azar:~$</span> 
+                echo "eGF2aWVydG9rby5wcm9AZ21haWwuY29t" | base64 -d
+            </p>
+            <p class="output-line">
+                <span class="result-arrow">↳</span> 
+                <a href="mailto:xaviertoko.pro@gmail.com" class="email-link">xaviertoko.pro@gmail.com</a>
+            </p>
+        </div>
+
+        <div class="socials">
             <a href="https://github.com/Azarkovich" target="_blank">GitHub</a>
             <a href="https://www.linkedin.com/in/xavier-toko-proust/" target="_blank">LinkedIn</a>
         </div>
+
         <div class="credits" style="margin-top: 20px; font-family: 'Fira Code', monospace; font-size: 0.85rem; opacity: 0.5;">
             <p>[ © azar-security.site 2025-2026 | Designed & Coded by &lt;/&gt; Azarkovich ]</p>
         </div>
     </footer>
+
+    <script src="script.js"></script>
 
 </body>
 </html>
