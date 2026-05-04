@@ -176,9 +176,9 @@
 
     <script>
         const urlParams  = new URLSearchParams(window.location.search);
-        const fileName   = urlParams.get('file');               // e.g. "xss-dvwa.md"
+        const fileName   = urlParams.get('file');              
         const fileNameFr = fileName
-            ? fileName.replace(/\.md$/, '.fr.md')               // e.g. "xss-dvwa.fr.md"
+            ? fileName.replace(/\.md$/, '.fr.md')               
             : null;
 
         const contentDiv  = document.getElementById('markdown-content');
@@ -189,7 +189,10 @@
         const btnFr       = document.getElementById('btn-fr');
 
         const cache = { en: null, fr: null };   // markdown content cache
-        let frAvailable = false;
+        // null  = not fetched yet
+        // false = fetched, doesn't exist
+        // string = fetched, content available
+        let frState = null;
 
         // ── Build image base path from file path ─────────────────────────
         function basePath(file) {
@@ -208,36 +211,61 @@
             Prism.highlightAll();
         }
 
-        // ── Switch displayed language ─────────────────────────────────────
-        function switchLang(lang) {
-            if (lang === 'fr' && !frAvailable) {
-                // No .fr.md yet — show notice, stay on EN
-                pendingNote.style.display = 'block';
-                btnEn.classList.add('active');
-                btnFr.classList.remove('active');
-                return;
-            }
+        // ── Safe fetch — returns null on 404, throws on network error ─────
+        async function fetchMd(path) {
+            const res = await fetch(path);
+            return res.ok ? res.text() : null;
+        }
 
+        // ── Switch displayed language (lazy-loads FR on first click) ──────
+        async function switchLang(lang) {
             pendingNote.style.display = 'none';
 
             if (lang === 'en') {
                 render(cache.en, fileName);
                 btnEn.classList.add('active');
                 btnFr.classList.remove('active');
-            } else {
-                render(cache.fr, fileNameFr);
-                btnFr.classList.add('active');
-                btnEn.classList.remove('active');
+                return;
             }
+
+            // FR requested — fetch if not yet attempted
+            if (frState === null) {
+                btnFr.disabled = true;
+                btnFr.textContent = '⏳';
+
+                try {
+                    const frMd = await fetchMd(`assets/writeups/${fileNameFr}`);
+                    frState = frMd || false;
+                    if (frMd) cache.fr = frMd;
+                } catch (e) {
+                    frState = false;
+                }
+
+                btnFr.disabled = false;
+                btnFr.textContent = '🇫🇷 FR';
+
+                // Disable button permanently if file doesn't exist
+                if (frState === false) {
+                    btnFr.disabled = true;
+                    btnFr.title    = 'Version française non disponible pour ce writeup';
+                }
+            }
+
+            if (frState === false) {
+                // No FR version — show notice, stay on EN
+                pendingNote.style.display = 'block';
+                btnEn.classList.add('active');
+                btnFr.classList.remove('active');
+                return;
+            }
+
+            // FR content available
+            render(cache.fr, fileNameFr);
+            btnFr.classList.add('active');
+            btnEn.classList.remove('active');
         }
 
-        // ── Safe fetch — returns null on 404 ─────────────────────────────
-        async function fetchMd(path) {
-            const res = await fetch(path);
-            return res.ok ? res.text() : null;
-        }
-
-        // ── Main: load EN + try FR ────────────────────────────────────────
+        // ── Main: load EN only ────────────────────────────────────────────
         async function load() {
             if (!fileName) {
                 loadingDiv.innerHTML = "<span style='color:red'>[ERROR] No file specified.</span>";
@@ -245,37 +273,24 @@
             }
 
             try {
-                // Fetch EN and FR in parallel for speed
-                const [enMd, frMd] = await Promise.all([
-                    fetchMd(`assets/writeups/${fileName}`),
-                    fetchMd(`assets/writeups/${fileNameFr}`)
-                ]);
-
+                const enMd = await fetchMd(`assets/writeups/${fileName}`);
                 if (!enMd) throw new Error('File not found');
 
                 cache.en = enMd;
-                if (frMd) { cache.fr = frMd; frAvailable = true; }
 
-                // Pick display language based on user preference
+                // If user preference is FR, attempt FR load immediately
                 const userLang = (typeof getLang === 'function') ? getLang() : 'en';
-
-                if (userLang === 'fr' && frAvailable) {
-                    render(cache.fr, fileNameFr);
-                    btnFr.classList.add('active');
-                    btnEn.classList.remove('active');
+                if (userLang === 'fr') {
+                    // Show EN first so the page isn't blank while FR loads
+                    render(cache.en, fileName);
+                    loadingDiv.style.display = 'none';
+                    langBar.style.display    = 'flex';
+                    // Then switch to FR (lazy fetch)
+                    switchLang('fr');
                 } else {
                     render(cache.en, fileName);
-                    // Show warning if user is in FR mode but no translation exists
-                    if (userLang === 'fr') pendingNote.style.display = 'block';
-                }
-
-                loadingDiv.style.display = 'none';
-                langBar.style.display    = 'flex';
-
-                // Disable FR button if no translation exists
-                if (!frAvailable) {
-                    btnFr.disabled = true;
-                    btnFr.title    = 'Version française non disponible pour ce writeup';
+                    loadingDiv.style.display = 'none';
+                    langBar.style.display    = 'flex';
                 }
 
             } catch (err) {
