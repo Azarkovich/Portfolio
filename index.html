@@ -7,18 +7,19 @@
 
     <!-- SECURITY LAYER -->
     <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self';
-                script-src 'self'; 
-                style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
-                font-src https://fonts.gstatic.com; 
-                img-src 'self'; 
-                frame-ancestors 'none'; 
-                base-uri 'self'; 
-                form-action 'self';">
+    content="default-src 'self';
+             script-src 'self' https://gc.zgo.at;
+             style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+             font-src https://fonts.gstatic.com;
+             img-src 'self';
+             connect-src 'self' https://azarkovich.goatcounter.com;
+             frame-ancestors 'none';
+             base-uri 'self';
+             form-action 'self';">
 
     <meta name="referrer" content="strict-origin-when-cross-origin">
 
-    <link href="//fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -27,9 +28,9 @@
         <a href="index.html" class="logo">[ ./Home ]</a>
 
         <ul class="nav-links">
-            <li><a href="#projects">[ ./Projects & Writeups ]</a></li>
-            <li><a href="https://github.com/Azarkovich" target="_blank">[ ./GitHub ]</a></li>
-            <li><a href="assets/CV.pdf" target="_blank">[ ./Resume.pdf ]</a></li>
+            <li><a href="#projects" data-i18n="nav.projects">[ ./Projects & Writeups ]</a></li>
+            <li><a href="https://github.com/Azarkovich" target="_blank" data-i18n="nav.github">[ ./GitHub ]</a></li>
+            <li><a href="assets/CV.pdf" target="_blank" data-i18n="nav.resume">[ ./Resume.pdf ]</a></li>
         </ul>
     </nav>
 
@@ -61,11 +62,11 @@
         </div>
     </section>
 
-    <section id="projects" class="container">
-        <h2 class="section-title">[ ./Projects_&_Writeups ]</h2>
+        <section id="projects" class="container">
+        <h2 class="section-title" data-i18n="section.projects">[ ./Projects_&_Writeups ]</h2>
         
         <div class="projects-grid">
-
+ 
             <article class="card">
                 <div class="team-badge team-blue">
                     <span class="circle blue"></span> [ Project ]
@@ -76,50 +77,45 @@
                     <span class="tag">Argon2id</span>
                     <span class="tag">Crypto (AES-GCM)</span>
                 </div>
-                <p>Local password manager encrypted with AES-256-GCM. Built with a zero-knowledge architecture and a custom PySide6 interface.</p>
-                
-                <a href="purplekey.html" class="btn-link">Download & Details -></a>
+                <p data-i18n="card.purplekey.desc">Local password manager encrypted with AES-256-GCM. Built with a zero-knowledge architecture and a custom PySide6 interface.</p>
+                <a href="purplekey.html" class="btn-link" data-i18n="btn.download">Download & Details -></a>
             </article>
-
+ 
             <article class="card">
                 <div class="team-badge team-red">
                     <span class="circle red"></span> [ Red Team ]
                 </div>
-
                 <h3>XSS Vulnerability</h3>
                 <div class="tags">
                     <span class="tag">DVWA</span>
                     <span class="tag">Web</span>
                     <span class="tag">XSS</span>
                 </div>
-                <p>Deep dive into Cross-Site Scripting mechanics. Analyzed injection vectors, exploitation scenarios, and implemented secure coding mitigations. </p>
-                <a href="viewer.html?file=xss-dvwa.md" class="btn-link">Read Write-up -></a>
+                <p data-i18n="card.xss.desc">Deep dive into Cross-Site Scripting mechanics. Analyzed injection vectors, exploitation scenarios, and implemented secure coding mitigations.</p>
+                <a href="viewer.html?file=xss-dvwa.md" class="btn-link" data-i18n="btn.read_writeup">Read Write-up -></a>
             </article>
-
+ 
             <article class="card">
                 <div class="team-badge team-blue">
                     <span class="circle blue"></span> [ Blue Team ]
                 </div>
-
                 <h3>Alert Triage — Nmap Scan Detection</h3>
                 <div class="tags">
                     <span class="tag">SOC </span>
                     <span class="tag">Network Analysis</span>
                     <span class="tag">Splunk</span>
                 </div>
-                <p>Investigated suspicious network traffic to detect and triage unauthorized Nmap scanning activity. Analyzed logs data to identify stealth scan signatures (SYN, UDP) and documented IOCs for defensive rule creation.</p>
-
-                <a href="viewer.html?file=blue-team/alert-triage-nmap.md" class="btn-link">Read Write-up -></a>
+                <p data-i18n="card.nmap.desc">Investigated suspicious network traffic to detect and triage unauthorized Nmap scanning activity. Analyzed logs data to identify stealth scan signatures (SYN, UDP) and documented IOCs for defensive rule creation.</p>
+                <a href="viewer.html?file=blue-team/alert-triage-nmap.md" class="btn-link" data-i18n="btn.read_writeup">Read Write-up -></a>
             </article>
         </div>
-
+ 
         <!-- SEE MORE -->
         <div class="see-more-container" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 40px;">
-            <a href="projects.html" class="btn-terminal">
+            <a href="projects.html" class="btn-terminal" data-i18n="btn.all_projects">
                 [ ls -la ./All_Projects ] &#10142;
             </a>
-            
-            <a href="writeups.html" class="btn-terminal">
+            <a href="writeups.html" class="btn-terminal" data-i18n="btn.all_writeups">
                 [ ls -la ./All_Writeups ] &#10142;
             </a>
         </div>
@@ -149,6 +145,10 @@
     </div>
 </footer>
 
+    <script data-goatcounter="https://azarkovich.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
     <script src="script.js"></script>
+    <script src="i18n.js"></script>
 </body>
 </html>

@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PurpleKEY | Password Manager</title>
+
+    <!-- SECURITY LAYER -->
+    <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self';
+             script-src 'self' https://gc.zgo.at;
+             style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+             font-src https://fonts.gstatic.com;
+             img-src 'self';
+             connect-src 'self' https://azarkovich.goatcounter.com;
+             frame-ancestors 'none';
+             base-uri 'self';
+             form-action 'self';">
+
     
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -119,18 +132,20 @@
     <nav class="navbar" style="background: rgba(14, 14, 20, 0.9);">
         <a href="index.html" class="logo-container" style="text-decoration: none;">
             <div class="logo-text">
-                <span class="prompt" style="color: var(--pk-violet);">></span> <span style="color: var(--pk-text-pri);">Xavier TOKO-PROUST</span><span class="cursor">_</span>
+                <span class="prompt" style="color: var(--pk-violet);">></span>
+                <span style="color: var(--pk-text-pri);">Xavier TOKO-PROUST</span><span class="cursor">_</span>
             </div>
         </a>
         <ul class="nav-links">
-            <li><a href="index.html" style="color: var(--pk-text-sec);">[ ./Home ]</a></li>
-            <li><a href="https://github.com/Azarkovich/PurpleKEY" target="_blank" style="color: var(--pk-violet-lt);">[ ./Source_Code ]</a></li>
+            <li><a href="index.html" style="color: var(--pk-text-sec);" data-i18n="nav.home">[ ./Home ]</a></li>
+            <li><a href="https://github.com/Azarkovich/PurpleKEY" target="_blank" style="color: var(--pk-violet-lt);" data-i18n="nav.source">[ ./Source_Code ]</a></li>
+            <!-- lang toggle injected by i18n.js -->
         </ul>
     </nav>
 
     <section class="container pk-hero">
         <h1 class="pk-title">PurpleKEY</h1>
-        <p class="pk-subtitle">
+        <p class="pk-subtitle" data-i18n="pk.subtitle">
             Local, encrypted, and open-source password manager. Built with a zero-knowledge architecture for absolute security. Your data never leaves your machine.
         </p>
 
@@ -149,29 +164,32 @@
 
     <section class="container" style="max-width: 900px; margin-bottom: 80px;">
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;">
-            
+
+            <!-- Security Specs -->
             <div class="pk-card">
                 <h3>./Security_Specs</h3>
                 <ul class="pk-list">
-                    <li>Encryption: AES-256-GCM</li>
-                    <li>Key Derivation: Argon2id (64MB, 3 iter)</li>
-                    <li>Storage: Binary CBOR or SQLite</li>
-                    <li>Integrity: GCM Tag (No hash stored)</li>
-                    <li>Strength Estimation: zxcvbn</li>
+                    <li data-i18n="pk.spec.enc">Encryption: AES-256-GCM</li>
+                    <li data-i18n="pk.spec.kdf">Key Derivation: Argon2id (64MB, 3 iter)</li>
+                    <li data-i18n="pk.spec.storage">Storage: Binary CBOR or SQLite</li>
+                    <li data-i18n="pk.spec.integrity">Integrity: GCM Tag (No hash stored)</li>
+                    <li data-i18n="pk.spec.strength">Strength Estimation: zxcvbn</li>
                 </ul>
             </div>
 
+            <!-- Features -->
             <div class="pk-card">
                 <h3>./Features</h3>
                 <ul class="pk-list">
-                    <li>Zero-Knowledge Architecture</li>
-                    <li>Generator (Random / Passphrase)</li>
-                    <li>Favorites System</li>
-                    <li>Real-time encrypted search</li>
-                    <li>100% Local, Offline & Open Source</li>
+                    <li data-i18n="pk.feat.zerokno">Zero-Knowledge Architecture</li>
+                    <li data-i18n="pk.feat.generator">Generator (Random / Passphrase)</li>
+                    <li data-i18n="pk.feat.favorites">Favorites System</li>
+                    <li data-i18n="pk.feat.search">Real-time encrypted search</li>
+                    <li data-i18n="pk.feat.local">100% Local, Offline & Open Source</li>
                 </ul>
             </div>
 
+            <!-- Tech Stack — intentionally not translated (all proper names) -->
             <div class="pk-card">
                 <h3>./Tech_Stack</h3>
                 <ul class="pk-list">
@@ -183,29 +201,35 @@
             </div>
         </div>
 
+        <!-- Installation Notes -->
         <div class="pk-card" style="margin-top: 25px;">
             <h3>./Installation_Notes</h3>
-            <p style="color: var(--pk-text-sec); font-size: 0.95rem; line-height: 1.6;">
+            <p style="color: var(--pk-text-sec); font-size: 0.95rem; line-height: 1.6;" data-i18n="pk.install.p">
                 As an independent open-source application, PurpleKEY is not signed with expensive developer certificates. Your OS might display a security warning on the first launch.
             </p>
             
             <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 15px;">
                 <div style="flex: 1; min-width: 250px;">
-                    <strong style="color: var(--pk-text-pri);">Windows (SmartScreen):</strong>
-                    <p style="color: var(--pk-text-sec); font-size: 0.9rem;">Click on "More info" > "Run anyway".</p>
+                    <strong style="color: var(--pk-text-pri);" data-i18n="pk.win.title">Windows (SmartScreen):</strong>
+                    <p style="color: var(--pk-text-sec); font-size: 0.9rem;" data-i18n="pk.win.desc">Click "More info" then "Run anyway".</p>
                 </div>
                 <div style="flex: 1; min-width: 250px;">
-                    <strong style="color: var(--pk-text-pri);">macOS (Gatekeeper):</strong>
-                    <p style="color: var(--pk-text-sec); font-size: 0.9rem;">Open your terminal and type:<br> <code style="background: rgba(0,0,0,0.5); padding: 2px 5px; border-radius: 3px; color: var(--pk-violet-lt);">xattr -dr com.apple.quarantine PurpleKEY-macos</code></p>
+                    <strong style="color: var(--pk-text-pri);" data-i18n="pk.mac.title">macOS (Gatekeeper):</strong>
+                    <p style="color: var(--pk-text-sec); font-size: 0.9rem;" data-i18n="pk.mac.desc">Open your terminal and type:</p>
+                    <code style="background: rgba(0,0,0,0.5); padding: 2px 5px; border-radius: 3px; color: var(--pk-violet-lt);">xattr -dr com.apple.quarantine PurpleKEY-macos</code>
                 </div>
             </div>
 
-            <div class="pk-warning">
+            <div class="pk-warning" data-i18n="pk.warning">
                 <strong>Warning:</strong> The source code is fully auditable on GitHub. Ensure you choose a strong master password: <u>it is cryptographically impossible to recover your data if forgotten.</u>
             </div>
         </div>
 
     </section>
 
+    <script data-goatcounter="https://azarkovich.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+    <script src="i18n.js"></script>
 </body>
 </html>
