@@ -97,7 +97,7 @@ const writeupsData = [
         teamLabel: "[ Blue Team ]",
         tags: ["Incident Response", "Linux Logs", "Forensics"],
         description: "Investigation of a compromised Linux machine. Analyzed Nmap results, identified a backdoor user ('mircoservice') hidden in root cronjobs, and parsed auth.log to uncover a malicious package.",
-        link: "viewer.html?file=blue-team/ironshade.md",
+        link: "viewer.html?file=ironshade/ironshade.md",
         linkText: "Read Write-up ->"
     },
     {
