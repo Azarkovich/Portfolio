@@ -5,17 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Write-Up Viewer | Xavier TOKO-PROUST</title>
 
-    <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self';
-             script-src 'self' https://gc.zgo.at https://cdn.jsdelivr.net https://cdnjs.cloudflare.com;
-             style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
-             font-src https://fonts.gstatic.com;
-             img-src 'self' data:;
-             connect-src 'self' https://azarkovich.goatcounter.com;
-             frame-ancestors 'none';
-             base-uri 'self';
-             form-action 'self';">
-    
+    <meta http-equiv="X-Frame-Options" content="DENY">
+
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
@@ -79,7 +70,6 @@
             font-style: italic;
         }
 
-        /* ── Language toggle bar ── */
         #lang-bar {
             max-width: 800px;
             margin: 0 auto 14px auto;
@@ -117,7 +107,6 @@
             cursor: not-allowed;
         }
 
-        /* "FR coming soon" notice */
         #fr-pending {
             max-width: 800px;
             margin: 0 auto 16px auto;
@@ -140,22 +129,20 @@
             </div>
         </a>
         <ul class="nav-links">
-            <li><a href="index.html"    data-i18n="nav.home">[ ./Home ]</a></li>
+            <li><a href="index.html" data-i18n="nav.home">[ ./Home ]</a></li>
             <li><a href="writeups.html" data-i18n="nav.writeups">[ ./Writeups ]</a></li>
         </ul>
     </nav>
 
     <section class="container" style="margin-top: 100px; margin-bottom: 50px;">
 
-        <div id="loading" style="text-align: center;" data-i18n="viewer.loading">[ Fetching data stream... ]</div>
+        <div id="loading" style="text-align: center;">[ Fetching data stream... ]</div>
 
-        <!-- Language toggle — revealed after content loads -->
         <div id="lang-bar">
             <button id="btn-en" class="lang-btn active" onclick="switchLang('en')">🇬🇧 EN</button>
             <button id="btn-fr" class="lang-btn"        onclick="switchLang('fr')">🇫🇷 FR</button>
         </div>
 
-        <!-- Shown when no .fr.md exists yet -->
         <div id="fr-pending">
             ⚠ Version française non disponible pour ce writeup — affichage en anglais.
         </div>
@@ -176,10 +163,8 @@
 
     <script>
         const urlParams  = new URLSearchParams(window.location.search);
-        const fileName   = urlParams.get('file');              
-        const fileNameFr = fileName
-            ? fileName.replace(/\.md$/, '.fr.md')               
-            : null;
+        const fileName   = urlParams.get('file');
+        const fileNameFr = fileName ? fileName.replace(/\.md$/, '.fr.md') : null;
 
         const contentDiv  = document.getElementById('markdown-content');
         const loadingDiv  = document.getElementById('loading');
@@ -188,120 +173,104 @@
         const btnEn       = document.getElementById('btn-en');
         const btnFr       = document.getElementById('btn-fr');
 
-        const cache = { en: null, fr: null };   // markdown content cache
-        // null  = not fetched yet
-        // false = fetched, doesn't exist
-        // string = fetched, content available
-        let frState = null;
+        // Cached content: null = not fetched, false = 404, string = content
+        let enContent = null;
+        let frContent = null;
+        let frFetched = false;
 
-        // ── Build image base path from file path ─────────────────────────
+        // ── Build image base path ─────────────────────────────────────────
         function basePath(file) {
             const folder = file.substring(0, file.lastIndexOf('/'));
-            return folder ? `assets/writeups/${folder}/` : 'assets/writeups/';
+            return folder ? 'assets/writeups/' + folder + '/' : 'assets/writeups/';
         }
 
-        // ── Render markdown, fixing relative image paths ─────────────────
+        // ── Render markdown ───────────────────────────────────────────────
         function render(md, file) {
             const base  = basePath(file);
-            const fixed = md.replace(
-                /!\[([^\]]*)\]\((?!http)(.*?)\)/g,
-                `![$1](${base}$2)`
-            );
+            const fixed = md.replace(/!\[([^\]]*)\]\((?!http)(.*?)\)/g, '![$1](' + base + '$2)');
             contentDiv.innerHTML = marked.parse(fixed);
             Prism.highlightAll();
         }
 
-        // ── Safe fetch — returns null on 404, throws on network error ─────
-        async function fetchMd(path) {
-            const res = await fetch(path);
-            return res.ok ? res.text() : null;
-        }
-
-        // ── Switch displayed language (lazy-loads FR on first click) ──────
-        async function switchLang(lang) {
+        // ── Switch language ───────────────────────────────────────────────
+        function switchLang(lang) {
             pendingNote.style.display = 'none';
 
             if (lang === 'en') {
-                render(cache.en, fileName);
+                render(enContent, fileName);
                 btnEn.classList.add('active');
                 btnFr.classList.remove('active');
                 return;
             }
 
-            // FR requested — fetch if not yet attempted
-            if (frState === null) {
-                btnFr.disabled = true;
+            // FR — lazy fetch on first click
+            if (!frFetched) {
+                btnFr.disabled    = true;
                 btnFr.textContent = '⏳';
 
-                try {
-                    const frMd = await fetchMd(`assets/writeups/${fileNameFr}`);
-                    frState = frMd || false;
-                    if (frMd) cache.fr = frMd;
-                } catch (e) {
-                    frState = false;
-                }
-
-                btnFr.disabled = false;
-                btnFr.textContent = '🇫🇷 FR';
-
-                // Disable button permanently if file doesn't exist
-                if (frState === false) {
-                    btnFr.disabled = true;
-                    btnFr.title    = 'Version française non disponible pour ce writeup';
-                }
-            }
-
-            if (frState === false) {
-                // No FR version — show notice, stay on EN
-                pendingNote.style.display = 'block';
-                btnEn.classList.add('active');
-                btnFr.classList.remove('active');
+                fetch('assets/writeups/' + fileNameFr)
+                    .then(function(res) {
+                        frFetched = true;
+                        if (!res.ok) throw new Error('not found');
+                        return res.text();
+                    })
+                    .then(function(md) {
+                        frContent = md;
+                        btnFr.disabled    = false;
+                        btnFr.textContent = '🇫🇷 FR';
+                        render(frContent, fileNameFr);
+                        btnFr.classList.add('active');
+                        btnEn.classList.remove('active');
+                    })
+                    .catch(function() {
+                        frFetched         = true;
+                        btnFr.disabled    = true;
+                        btnFr.textContent = '🇫🇷 FR';
+                        btnFr.title       = 'Version française non disponible';
+                        pendingNote.style.display = 'block';
+                    });
                 return;
             }
 
-            // FR content available
-            render(cache.fr, fileNameFr);
+            if (!frContent) {
+                pendingNote.style.display = 'block';
+                return;
+            }
+
+            render(frContent, fileNameFr);
             btnFr.classList.add('active');
             btnEn.classList.remove('active');
         }
 
-        // ── Main: load EN only ────────────────────────────────────────────
-        async function load() {
-            if (!fileName) {
-                loadingDiv.innerHTML = "<span style='color:red'>[ERROR] No file specified.</span>";
-                return;
-            }
-
-            try {
-                const enMd = await fetchMd(`assets/writeups/${fileName}`);
-                if (!enMd) throw new Error('File not found');
-
-                cache.en = enMd;
-
-                // If user preference is FR, attempt FR load immediately
-                const userLang = (typeof getLang === 'function') ? getLang() : 'en';
-                if (userLang === 'fr') {
-                    // Show EN first so the page isn't blank while FR loads
-                    render(cache.en, fileName);
+        // ── Main load — identical to the original's proven pattern ────────
+        if (!fileName) {
+            loadingDiv.innerHTML = "<span style='color:red'>[ERROR] No file specified.</span>";
+        } else {
+            fetch('assets/writeups/' + fileName)
+                .then(function(response) {
+                    if (!response.ok) throw new Error('File not found');
+                    return response.text();
+                })
+                .then(function(markdown) {
+                    enContent = markdown;
+                    render(enContent, fileName);
                     loadingDiv.style.display = 'none';
                     langBar.style.display    = 'flex';
-                    // Then switch to FR (lazy fetch)
-                    switchLang('fr');
-                } else {
-                    render(cache.en, fileName);
-                    loadingDiv.style.display = 'none';
-                    langBar.style.display    = 'flex';
-                }
 
-            } catch (err) {
-                loadingDiv.innerHTML = `<span style='color:red'>[ERROR] 404 — ${fileName}</span>`;
-                console.error(err);
-            }
+                    // If user is in FR mode, trigger FR load automatically
+                    if (typeof getLang === 'function' && getLang() === 'fr') {
+                        switchLang('fr');
+                    }
+                })
+                .catch(function(error) {
+                    loadingDiv.innerHTML = "<span style='color:red'>[ERROR] 404 — " + fileName + "</span>";
+                    console.error(error);
+                });
         }
-
-        load();
     </script>
+
     <script data-goatcounter="https://azarkovich.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+        async src="https://gc.zgo.at/count.js"></script>
+
 </body>
 </html>

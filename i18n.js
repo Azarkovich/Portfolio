@@ -33,9 +33,6 @@ const I18N = {
 
         // Viewer
         'viewer.loading':       '[ Fetching data stream... ]',
-        'viewer.translate':     '🇫🇷 Translate to French',
-        'viewer.translating':   '⏳ Translating...',
-        'viewer.restore':       '🇬🇧 Back to English',
 
         // PurpleKEY page
         'pk.subtitle':          'Local, encrypted, and open-source password manager. Built with a zero-knowledge architecture for absolute security. Your data never leaves your machine.',
@@ -94,9 +91,6 @@ const I18N = {
 
         // Viewer
         'viewer.loading':       '[ Chargement du flux de données... ]',
-        'viewer.translate':     '🇫🇷 Traduire en français',
-        'viewer.translating':   '⏳ Traduction en cours...',
-        'viewer.restore':       '🇬🇧 Afficher en anglais',
 
         // PurpleKEY page
         'pk.subtitle':          'Gestionnaire de mots de passe local, chiffré et open-source. Conçu avec une architecture zéro-connaissance pour une sécurité absolue. Vos données ne quittent jamais votre machine.',
